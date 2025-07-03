@@ -1,0 +1,158 @@
+﻿@page
+@model AplicatieInterviu.Pages.AdminDashboardModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<style>
+    .dashboard-container {
+        display: flex;
+        height: 90vh;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .left-panel {
+        width: 35%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding-right: 20px;
+        border-right: 1px solid #ccc;
+    }
+
+    .panel-section {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background-color: #f9f9f9;
+    }
+
+    .right-panel {
+        width: 65%;
+        padding-left: 20px;
+        overflow-y: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    input[type="email"] {
+        width: 100%;
+        padding: 6px;
+        margin-top: 6px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        padding: 6px 12px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .logout-container {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px 20px;
+    }
+
+    .logout-button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .sendInvite {
+        display: flex;
+        flex-direction: column !important;
+    }
+
+        .sendInvite input {
+            margin-bottom: 10px;
+        }
+
+            .sendInvite input:last-child {
+                margin-bottom: 0;
+            }
+
+</style>
+
+<div class="logout-container">
+    <form method="post" asp-page-handler="Logout">
+        <button type="submit" class="logout-button">Logout</button>
+    </form>
+</div>
+
+<div class="dashboard-container">
+    <!-- Left Panel -->
+    <div class="left-panel">
+        <!-- Company Info -->
+        <div class="panel-section">
+            <h4>Date Companie</h4>
+            <p><strong>Nume:</strong> @Model.Companie.Name</p>
+            <p><strong>Locatie:</strong> @Model.Companie.Location</p>
+        </div>
+
+        <!-- User Info -->
+        <div class="panel-section">
+            <h4>Date Utilizator</h4>
+            <p><strong>Nume:</strong> @Model.Utilizator.Nume</p>
+            <p><strong>Prenume:</strong> @Model.Utilizator.Prenume</p>
+            <p><strong>Email:</strong> @Model.Utilizator.Email</p>
+        </div>
+
+        <!-- Invite Form -->
+        <div class="panel-section">
+            <h4>Invita un Utilizator</h4>
+            <form method="post" class="sendInvite">
+                <input type="email" name="emailInvitat" placeholder="Email utilizator" required />
+                <input type="text" name="numeInvitat" placeholder="Nume utilizator" required />
+                <input type="text" name="prenumeInvitat" placeholder="Prenume utilizator" required />
+                <button type="submit">Trimite Invitatie</button>
+            </form>
+            @if (!string.IsNullOrEmpty(Model.Mesaj))
+            {
+                <p>@Model.Mesaj</p>
+            }
+        </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+        <h3>Lista Utilizatori</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nume Prenume</th>
+                    <th>Email</th>
+                    <th>Telefon</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Utilizatori)
+                {
+                    <tr>
+                        <td>@user.Nume @user.Prenume</td>
+                        <td>@user.Email</td>
+                        <td>@user.Phone</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

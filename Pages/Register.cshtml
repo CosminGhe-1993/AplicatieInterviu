@@ -1,0 +1,39 @@
+﻿@page
+@model AplicatieInterviu.Pages.RegisterModel
+
+<style>
+    .form-container {
+        width: 300px;
+        margin: 4rem auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    input {
+        margin-bottom: 10px;
+        padding: 8px;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
+<div class="form-container">
+    <form method="post">
+        <input asp-for="CompanieDto.Name" placeholder="Nume companie" />
+        <input asp-for="CompanieDto.Location" placeholder="Locație companie" />
+        <input asp-for="UserDto.Nume" placeholder="Nume" />
+        <input asp-for="UserDto.Prenume" placeholder="Prenume" />
+        <input asp-for="UserDto.Email" type="email" placeholder="Email" />
+        <input asp-for="UserDto.Phone" placeholder="Număr de telefon" />
+        <input asp-for="Password" type="password" placeholder="Parola" />
+        <button type="submit">Înregistrează</button>
+    </form>
+</div>

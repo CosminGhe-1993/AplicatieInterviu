@@ -1,0 +1,50 @@
+﻿@page
+@model AplicatieInterviu.Pages.LoginModel
+@{
+    ViewData["Title"] = "Autentificare";
+}
+
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 40rem;
+    }
+
+    select, input, button {
+        margin: 10px 0;
+        padding: 10px;
+        width: 250px;
+        font-size: 16px;
+    }
+
+    .error-message {
+        color: red;
+        margin-top: 10px;
+    }
+
+    .form-class{
+        display:flex;
+        flex-direction:column !important;
+    }
+</style>
+
+<div class="container">
+    <form method="post" class="form-class">
+        <select asp-for="Login.Company" asp-items="Model.Companies">
+            <option value="">Selectează compania</option>
+        </select>
+
+        <input asp-for="Login.Email" placeholder="Email" />
+        <input asp-for="Login.Password" type="password" placeholder="Parolă" />
+
+        <button type="submit">Autentificare</button>
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="error-message">@Model.ErrorMessage</div>
+        }
+    </form>
+</div>
